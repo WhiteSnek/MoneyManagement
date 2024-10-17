@@ -1,13 +1,15 @@
 import React from 'react'
-
+import Profile from './Profile/Profile'
+import {user} from '../../constants/user'
+import Amount from './Budget/Amount'
 const Header:React.FC = () => {
   return (
-    <div className='m-4 rounded-md bg-zinc-800 flex justify-between p-4 text-white font-sans border-[1px] border-zinc-400'>
+    <div className='m-4 rounded-md bg-zinc-800 flex justify-between p-2 text-white font-sans border-[1px] border-zinc-400 items-center'>
       <div>
-        Profile
+        <Profile user={user} />
       </div>
       <div>
-        Budget
+        <Amount amount={10000} />
       </div>
     </div>
   )
