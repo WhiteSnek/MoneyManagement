@@ -18,13 +18,13 @@ const Card: React.FC<CardProps> = ({ history }) => {
       <img src={history.image} alt={history.title} className="h-52 aspect-square object-cover rounded-md" />
       <div className="flex flex-col gap-2 py-4">
         <div>
-        <h2 className="text-lg font-bold">{history.title}</h2>
-        <p className="text-sm text-zinc-300">{history.specifications}</p>
+        <h2 className="text-lg font-bold text-zinc-300">{history.title}</h2>
+        <p className="text-sm text-zinc-500">{history.specifications}</p>
         </div>
         <div className="flex flex-col justify-end">
-        <p className="text-sm text-zinc-100 font-semibold">Price: <sup>₹</sup> {formatAmount(history.price)}</p>
-        <p className="text-sm text-zinc-100 font-semibold">Quantity: {history.quantity}</p>
-        <p className="text-sm text-zinc-100 font-semibold">Date Bought: {history.dateBought}</p>
+        <p className="text-sm text-zinc-400 font-semibold">Price: <sup>₹</sup> {formatAmount(history.price)}</p>
+        <p className="text-sm text-zinc-400 font-semibold">Quantity: {history.quantity}</p>
+        <p className="text-sm text-zinc-400 font-semibold">Date Bought: {history.dateBought}</p>
         </div>
       </div>
     </div>

@@ -3,17 +3,32 @@ import React, { useState } from "react";
 import AddUrl from "./AddUrl/AddUrl";
 import AddManuallyButton from "./AddManual/AddManuallyButton";
 import AddManualForm from "./AddManual/AddManualForm";
+import { Products } from "../List/List";
 
-interface PopupProps {
-  togglePopup: React.MouseEventHandler<HTMLButtonElement>;
-  month: string;
+
+export interface ProductDetails {
+  name: string;
+  specifications: string;
+  image:  string | ArrayBuffer | null | File;
+  imageUrl: string
+  price: number;
+  quantity: number;
 }
 
-const Popup: React.FC<PopupProps> = ({ togglePopup, month }) => {
+interface PopupProps {
+  togglePopup: () => void;
+  month: string;
+  setProducts: React.Dispatch<React.SetStateAction<Products[]>>;
+  products: Products[]
+}
+
+const Popup: React.FC<PopupProps> = ({ togglePopup, month, setProducts, products }) => {
   const [manual, setManual] = useState<boolean>(false);
+  const [details,setDetails] = useState<ProductDetails>({name: '', specifications: '', image: null, imageUrl: '', price: 0, quantity: 0 })
   const toggleManual = () => {
     setManual(!manual);
   };
+  
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-zinc-800 text-zinc-100 rounded-lg p-8 shadow-3xl max-w-3xl w-full">
@@ -26,7 +41,7 @@ const Popup: React.FC<PopupProps> = ({ togglePopup, month }) => {
             <Close sx={{ fontSize: 30 }} />
           </button>
         </div>
-        {!manual ? <AddUrl /> : <AddManualForm />}
+        {!manual ? <AddUrl /> : <AddManualForm details={details} setDetails={setDetails} products={products} setProducts={setProducts} togglePopup={togglePopup} />}
         <AddManuallyButton toggleManual={toggleManual} manual={manual} />
       </div>
     </div>
