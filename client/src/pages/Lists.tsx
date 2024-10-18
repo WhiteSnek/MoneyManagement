@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import UserLists from "../components/UserLists/UserLists";
 
-const Lists = () => {
+const Lists: React.FC = () => {
   return (
-    <div>
-      
+    <div className="h-[83vh] overflow-scroll">
+      <UserLists />
     </div>
-  )
-}
+  );
+};
 
-export default Lists
+export default Lists;

@@ -12,7 +12,7 @@ const Sidebar:React.FC = () => {
       ))}
       </div>
       <div>
-        <Button label='Settings' icon={Settings} />
+        <Button label='Settings' icon={Settings} className='hover:-translate-y-1 w-full hover:bg-zinc-900' />
       </div>
     </div>
   )
