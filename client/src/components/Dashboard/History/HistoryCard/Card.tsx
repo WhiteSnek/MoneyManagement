@@ -14,7 +14,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ history }) => {
   return (
-    <div className="p-4 bg-zinc-900 shadow-sm hover:-translate-y-2 transition-all hover:shadow-xl cursor-pointer rounded-md">
+    <div className="p-4 bg-zinc-900 shadow-sm hover:-translate-y-2 transition-all hover:shadow-xl cursor-pointer rounded-md flex flex-col">
       <img src={history.image} alt={history.title} className="h-52 aspect-square object-cover rounded-md" />
       <div className="flex flex-col gap-2 py-4">
         <div>

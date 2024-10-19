@@ -44,17 +44,17 @@ const Graph: React.FC = () => {
           },
           options: {
             responsive: true,
-            aspectRatio: 15/6,
+            aspectRatio: window.innerWidth > 768 ? 15/6 : 16/9,
             maintainAspectRatio: true,
             layout: {
-              padding: 20,
+              padding: window.innerWidth > 768 ? 20 : 0,
             },
             scales: {
               x: {
                 ticks: {
                   color: "white",
                   font: {
-                    size: 12
+                    size: window.innerWidth > 768 ? 12 : 8
                   }
                 },
               },
@@ -62,7 +62,7 @@ const Graph: React.FC = () => {
                 ticks: {
                   color: "white", 
                   font: {
-                    size: 12
+                    size: window.innerWidth > 768 ? 12 : 8
                   }
                 },
               },
@@ -72,7 +72,7 @@ const Graph: React.FC = () => {
                 labels: {
                   color: "white",
                   font: {
-                    size: 16
+                    size: window.innerWidth > 768 ? 16 : 10
                   }
                 },
               },
@@ -93,7 +93,7 @@ const Graph: React.FC = () => {
   }, [data]);
 
   return (
-    <div className="px-10 py-6 border-2 border-teal-500 rounded-lg">
+    <div className="px-4 py-2 sm:px-10 sm:py-6 border-2 border-teal-500 rounded-lg">
       <canvas ref={chartRef}></canvas>
     </div>
   );
