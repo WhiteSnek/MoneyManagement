@@ -44,7 +44,7 @@ const Graph: React.FC = () => {
           },
           options: {
             responsive: true,
-            aspectRatio: 16/4,
+            aspectRatio: 15/6,
             maintainAspectRatio: true,
             layout: {
               padding: 20,
@@ -93,7 +93,7 @@ const Graph: React.FC = () => {
   }, [data]);
 
   return (
-    <div className="px-10 py-6 border-2 border-teal-500 rounded-lg mx-4">
+    <div className="px-10 py-6 border-2 border-teal-500 rounded-lg">
       <canvas ref={chartRef}></canvas>
     </div>
   );
