@@ -3,7 +3,7 @@ import { Chart } from "chart.js/auto";
 import { productCategories } from "../../../constants/categories";
 
 const RadarGraph: React.FC = () => {
-  const data = [2, 4, 6, 8, 3, 0, 3, 2];
+  const data = [2, 4, 6, 5, 3, 0, 3, 2];
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
 
@@ -54,7 +54,7 @@ const RadarGraph: React.FC = () => {
               tooltip: {
                 callbacks: {
                   label: function (context) {
-                    return `${context.label}: $${context.raw}`;
+                    return `${context.label}: ${context.raw}`;
                   },
                 },
                 backgroundColor: "rgba(0,0,0,0.7)", 

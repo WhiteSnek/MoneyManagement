@@ -8,8 +8,8 @@ const UserHistory:React.FC = () => {
       <h1 className='text-2xl text-center text-zinc-200 font-bold p-4'>History</h1>
       <div className='grid grid-cols-1 sm:grid-cols-5 gap-4'>
       {
-        history.map((history) => (
-          <Card history={history} />
+        history.map((history, idx) => (
+          <Card history={history} key={idx}/>
         ))
       }
       </div>

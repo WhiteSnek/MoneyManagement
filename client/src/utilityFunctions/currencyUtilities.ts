@@ -1,27 +1,25 @@
 import { exchangeRates } from "../constants/currency";
 
 export const formatAmount = (amount: number): string => {
-  const amountStr = amount.toString();
-  const afterPoint = amountStr.includes('.') ? amountStr.split('.')[1] : ''; 
-  const beforePoint = amountStr.split('.')[0];
-
-  const lastThree = beforePoint.slice(-3);
-  const otherNumbers = beforePoint.slice(0, beforePoint.length - 3);
+  const isNegative = amount < 0;
   
-  const formattedBeforePoint = otherNumbers !== ''
-    ? otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + lastThree
-    : lastThree;
+  const absoluteAmount = Math.abs(amount);
+  const amountStr = absoluteAmount.toFixed(2); 
+  const [beforePoint, afterPoint] = amountStr.split('.');
 
-  return afterPoint ? formattedBeforePoint + '.' + afterPoint : formattedBeforePoint;
+  const formattedBeforePoint = beforePoint.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  return `${isNegative ? '-' : ''}${formattedBeforePoint}.${afterPoint}`;
 };
 
-export const convertCurrency = (amountInINR: number, targetCurrency: string): string => {
+export const convertCurrency = (amountInINR: number, targetCurrency: string): number => {
   const rate = exchangeRates[targetCurrency.toUpperCase()];
   
   if (!rate) {
-    return `Conversion to ${targetCurrency} is not supported.`;
+    return NaN;
   }
 
   const convertedAmount = amountInINR * rate;
-  return `${convertedAmount.toFixed(2)} ${targetCurrency.toUpperCase()}`;
+  return Math.round((convertedAmount + Number.EPSILON) * 100) / 100
+
 };

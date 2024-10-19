@@ -5,6 +5,7 @@ import ImageInput from "../../../utils/ImageInput";
 import Button from "../../../utils/Button";
 import { ProductDetails } from "../Popup";
 import { Products } from "../../List/List";
+import { useCurrency } from "../../../../providers/CurrencyProvider";
 
 interface AddManualFormProps {
   details: ProductDetails;
@@ -21,6 +22,7 @@ const AddManualForm: React.FC<AddManualFormProps> = ({
   products,
   togglePopup,
 }) => {
+  const {currency} = useCurrency()
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { name, imageUrl, price, quantity } = details;
@@ -31,7 +33,7 @@ const AddManualForm: React.FC<AddManualFormProps> = ({
     }
     setProducts([
       ...products,
-      { title: name, image: imageUrl, price: price, quantity: quantity },
+      { title: name, image: imageUrl, price: price, quantity: quantity, priority: 1 },
     ]);
     togglePopup();
   };
@@ -58,7 +60,7 @@ const AddManualForm: React.FC<AddManualFormProps> = ({
       />
       <div className="grid grid-cols-2 gap-4">
         <Input
-          label="Price:"
+          label={`Price (in ${currency.code}):`}
           type="text"
           value={details.price}
           inputMode="numeric"

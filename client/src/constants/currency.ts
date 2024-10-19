@@ -1,16 +1,17 @@
 export const exchangeRates: { [key: string]: number } = {
-    USD: 0.012,    
-    EUR: 0.011,    
-    GBP: 0.0098,   
-    JPY: 1.80,    
-    AUD: 0.018,    
-  };
+  USD: 0.011895,
+  EUR: 0.010937,
+  GBP: 0.0091,
+  JPY: 1.778852,
+  AUD: 0.017730,
+  INR: 1
+};
 
 export const currencies = [
-    "USD",
-    "INR",
-    "EUR",
-    "GBP",
-    "JPY",
-    "AUD"
-]
+  { code: "USD", symbol: "$" },
+  { code: "INR", symbol: "₹" },
+  { code: "EUR", symbol: "€" },
+  { code: "GBP", symbol: "£" },
+  { code: "JPY", symbol: "¥" },
+  { code: "AUD", symbol: "A$" },
+];

@@ -1,5 +1,6 @@
 import React from "react";
-import { formatAmount } from "../../../../utilityFunctions/currencyUtilities";
+import { convertCurrency, formatAmount } from "../../../../utilityFunctions/currencyUtilities";
+import { useCurrency } from "../../../../providers/CurrencyProvider";
 
 interface CardProps {
   history: {
@@ -13,6 +14,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ history }) => {
+  const {currency} = useCurrency()
   return (
     <div className="p-4 bg-zinc-900 shadow-sm hover:-translate-y-2 transition-all hover:shadow-xl cursor-pointer rounded-md flex flex-col">
       <img src={history.image} alt={history.title} className="h-52 aspect-square object-cover rounded-md" />
@@ -22,7 +24,7 @@ const Card: React.FC<CardProps> = ({ history }) => {
         <p className="text-sm text-zinc-500">{history.specifications}</p>
         </div>
         <div className="flex flex-col justify-end">
-        <p className="text-sm text-zinc-400 font-semibold">Price: <sup>₹</sup> {formatAmount(history.price)}</p>
+        <p className="text-sm text-zinc-400 font-semibold">Price: <sup>{currency.symbol}</sup> {formatAmount(convertCurrency(history.price, currency.code))}</p>
         <p className="text-sm text-zinc-400 font-semibold">Quantity: {history.quantity}</p>
         <p className="text-sm text-zinc-400 font-semibold">Date Bought: {history.dateBought}</p>
         </div>

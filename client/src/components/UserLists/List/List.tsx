@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product/Product";
 import { getTotalPrice } from "../../../utilityFunctions/getTotalPrice";
-import { formatAmount } from "../../../utilityFunctions/currencyUtilities";
+import { convertCurrency, formatAmount } from "../../../utilityFunctions/currencyUtilities";
 import { Add } from "@mui/icons-material";
 import Popup from "../Popup/Popup";
 import {
@@ -16,6 +16,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { useCurrency } from "../../../providers/CurrencyProvider";
 
 interface ListProps {
   list: {
@@ -35,7 +36,7 @@ export interface Products {
 const List: React.FC<ListProps> = ({ list }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [products, setProducts] = useState<Products[]>(list.products);
-
+  const {currency} = useCurrency()
   const togglePopup = () => {
     setOpen(!open);
   };
@@ -44,7 +45,7 @@ const List: React.FC<ListProps> = ({ list }) => {
 
   useEffect(() => {
     setTotalPrice(getTotalPrice(products));
-  }, [products]);
+  }, [products, currency]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -106,7 +107,7 @@ const List: React.FC<ListProps> = ({ list }) => {
       <div className="flex justify-between items-center text-lg text-zinc-100 p-2 mt-2">
         <h1 className=" font-semibold ">Total Price: </h1>
         <p className="font-bold">
-          <sup>₹</sup> {formatAmount(totalPrice)}
+          <sup>{currency.symbol}</sup> {formatAmount(convertCurrency(totalPrice, currency.code))}
         </p>
       </div>
       {open && (

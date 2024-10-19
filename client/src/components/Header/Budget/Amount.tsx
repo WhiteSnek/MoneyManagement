@@ -1,14 +1,16 @@
 import React from 'react'
-import { formatAmount } from '../../../utilityFunctions/currencyUtilities'
+import { convertCurrency, formatAmount } from '../../../utilityFunctions/currencyUtilities'
+import { useCurrency } from '../../../providers/CurrencyProvider'
 
 interface AmountProps {
     amount: number
 }
 
 const Amount:React.FC<AmountProps> = ({amount}) => {
+  const {currency} = useCurrency()
   return (
-    <div>
-      {formatAmount(amount)}
+    <div className='font-semibold'>
+      {formatAmount(convertCurrency(amount, currency.code))}
     </div>
   )
 }

@@ -1,8 +1,9 @@
 import React from 'react';
-import { formatAmount } from '../../../../utilityFunctions/currencyUtilities';
+import { convertCurrency, formatAmount } from '../../../../utilityFunctions/currencyUtilities';
 import truncateText from '../../../../utilityFunctions/truncateText';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { useCurrency } from '../../../../providers/CurrencyProvider';
 
 interface ProductProps {
   product: {
@@ -15,6 +16,7 @@ interface ProductProps {
 }
 
 const Product: React.FC<ProductProps> = ({ product }) => {
+  const {currency} = useCurrency()
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
     id: product.title,
   });
@@ -35,7 +37,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
       <div>
         <h1 className="text-lg font-bold">{truncateText(product.title, 20)}</h1>
         <p className="text-lg font-thin">
-          Price: <sup>₹</sup> {formatAmount(product.price)}
+          Price: <sup>{currency.symbol}</sup> {formatAmount(convertCurrency(product.price, currency.code))}
         </p>
         <p className="text-lg text-zinc-500">Quantity: {product.quantity}</p>
       </div>
