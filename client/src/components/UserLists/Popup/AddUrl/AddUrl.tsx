@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "../../../utils/Input";
+import Input from "../../../utils/Form/Input";
 import Button from "../../../utils/Button";
 
 const AddUrl: React.FC = () => {

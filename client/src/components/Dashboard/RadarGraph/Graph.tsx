@@ -1,11 +1,26 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 import { Chart } from "chart.js/auto";
+import { useGraph } from "../../../providers/GraphProvider"; 
 import { productCategories } from "../../../constants/categories";
+import { useCurrency } from "../../../providers/CurrencyProvider";
+import { convertCurrency } from "../../../utilityFunctions/currencyUtilities";
+import Select from "../../utils/Form/Select";
 
 const RadarGraph: React.FC = () => {
-  const data = [2, 4, 6, 5, 3, 0, 3, 2];
+  const { Graph } = useGraph(); 
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
+  const [dataType, setDataType] = useState<"amount" | "price">("amount");
+  const {currency} = useCurrency()
+
+  const data = useMemo(() => {
+    return productCategories.map((category) => {
+      const categoryData = Graph.category.find((cat) => cat.name === category);
+      const value = dataType === "amount" ? categoryData?.count : categoryData?.price;
+
+      return dataType === "amount" ? value || 0 : value ? convertCurrency(value, currency.code) : 0;
+    });
+  }, [dataType, Graph.category, currency]);
 
   useEffect(() => {
     if (chartRef.current) {
@@ -17,13 +32,13 @@ const RadarGraph: React.FC = () => {
             labels: productCategories,
             datasets: [
               {
-                label: "Monthly Expenditures",
+                label: dataType === "amount" ? "Monthly Count" : "Monthly Expenditures",
                 data: data,
-                backgroundColor: "rgba(13, 148, 136, 0.3)", 
-                borderColor: "rgba(13, 148, 136, 1)", 
+                backgroundColor: "rgba(13, 148, 136, 0.3)",
+                borderColor: "rgba(13, 148, 136, 1)",
                 pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgba(255, 99, 132, 1)", 
-                borderWidth: 1, 
+                pointHoverBorderColor: "rgba(255, 99, 132, 1)",
+                borderWidth: 1,
               },
             ],
           },
@@ -34,21 +49,21 @@ const RadarGraph: React.FC = () => {
             scales: {
               r: {
                 ticks: {
-                  display: false, 
+                  display: false,
                 },
                 grid: {
-                  color: "rgba(255, 255, 255, 0.2)", 
+                  color: "rgba(255, 255, 255, 0.2)",
                 },
                 angleLines: {
-                  color: "rgba(255, 255, 255, 0.5)", 
+                  color: "rgba(255, 255, 255, 0.5)",
                 },
               },
             },
             plugins: {
               legend: {
-                display: true, 
+                display: false,
                 labels: {
-                  color: "#fff", 
+                  color: "#fff",
                 },
               },
               tooltip: {
@@ -57,9 +72,9 @@ const RadarGraph: React.FC = () => {
                     return `${context.label}: ${context.raw}`;
                   },
                 },
-                backgroundColor: "rgba(0,0,0,0.7)", 
-                titleColor: "#fff", 
-                bodyColor: "#fff", 
+                backgroundColor: "rgba(0,0,0,0.7)",
+                titleColor: "#fff",
+                bodyColor: "#fff",
               },
             },
           },
@@ -72,10 +87,13 @@ const RadarGraph: React.FC = () => {
         chartInstanceRef.current.destroy();
       }
     };
-  }, [data]);
+  }, [data, dataType]); 
 
   return (
     <div className="px-10 py-4 border-2 border-teal-500 rounded-lg ml-4">
+      <div className="mb-4">
+      <Select title="Select Basis:" value={dataType} onChange={(e) => setDataType(e.target.value as "amount" | "price")} options={[{label: "Amount", value: "amount"}, {label: "Price",value: "price"}]} />
+      </div>
       <canvas ref={chartRef}></canvas>
     </div>
   );

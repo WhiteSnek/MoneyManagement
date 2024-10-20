@@ -1,7 +1,7 @@
 import React from "react";
-import Input from "../../../utils/Input";
-import TextArea from "../../../utils/TextArea";
-import ImageInput from "../../../utils/ImageInput";
+import Input from "../../../utils/Form/Input";
+import TextArea from "../../../utils/Form/TextArea";
+import ImageInput from "../../../utils/Form/ImageInput";
 import Button from "../../../utils/Button";
 import { ProductDetails } from "../Popup";
 import { Products } from "../../List/List";

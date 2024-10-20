@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import Button from "./Button";
-import { ProductDetails } from "../UserLists/Popup/Popup";
+import Button from "../Button";
+import { ProductDetails } from "../../UserLists/Popup/Popup";
 
 interface ImageInputProps {
   label?: string;

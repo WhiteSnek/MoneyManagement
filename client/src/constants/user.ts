@@ -47,120 +47,133 @@ export const history = [
   ];
   
 
-export  const monthlyList = [
-    {
-      month: "January",
-      products: [
-        {
-          title: "Protein Supplement",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZldrp8-m9c4LszYTBO297l8yrrSC04Jd-TQ&s",
-          price: 2500, // Price in rupees
-          quantity: 2,
-          priority: 1
-        },
-        {
-          title: "Running Shoes",
-          image: "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/450ed1df-8e17-4d87-a244-85697874661c/NIKE+REVOLUTION+7.png",
-          price: 3999,
-          quantity: 1,
-          priority: 2
-        },
-      ],
-    },
-    {
-      month: "February",
-      products: [
-        {
-          title: "Yoga Mat",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-FXZ7a6uwuO40PgcayuRDg7G77Ses0K1rOQ&s",
-          price: 1200,
-          quantity: 1,
-          priority: 1
-        },
-        {
-          title: "Dumbbell Set",
-          image: "https://m.media-amazon.com/images/I/5155oho74-L._AC_UF894,1000_QL80_.jpg",
-          price: 3500,
-          quantity: 1,
-          priority: 2
-        },
-      ],
-    },
-    {
-      month: "March",
-      products: [
-        {
-          title: "Laptop Cooling Pad",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHzzK2GL0mvi-3Io3CP7s9IGy2V7CTWCYUNw&s",
-          price: 999,
-          quantity: 1,
-          priority: 1
-        },
-        {
-          title: "USB-C Hub",
-          image: "https://m.media-amazon.com/images/I/61U5nfjrT0L.jpg",
-          price: 1500,
-          quantity: 1,
-          priority: 2
-        },
-      ],
-    },
-    {
-      month: "April",
-      products: [
-        {
-          title: "Wireless Earbuds",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0l_2Z39XSmqUJfhMI3rkQ3bUImirCK40UdQ&s",
-          price: 2999,
-          quantity: 1,
-          priority: 1
-        },
-        {
-          title: "Smartwatch",
-          image: "https://m.media-amazon.com/images/I/61ZjlBOp+rL.jpg",
-          price: 4999,
-          quantity: 1,
-          priority: 2
-        },
-      ],
-    },
-    {
-      month: "May",
-      products: [
-        {
-          title: "Air Purifier",
-          image: "https://m.media-amazon.com/images/I/71y1LcTgHQL._AC_UF894,1000_QL80_.jpg",
-          price: 8500,
-          quantity: 1,
-          priority: 1
-        },
-        {
-          title: "Water Bottle",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY5KlMdAAjmcIGewYfxl_Kd3pM-RBjfp4KMQ&s",
-          price: 499,
-          quantity: 2,
-          priority: 2
-        },
-      ],
-    },
-    {
-      month: "June",
-      products: [
-        {
-          title: "Camping Tent",
-          image: "https://m.media-amazon.com/images/I/812wCS-IKuL._AC_UF894,1000_QL80_.jpg",
-          price: 3500,
-          quantity: 1,
-          priority: 1
-        },
-        {
-          title: "Portable Grill",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Vs4ykOt0qJOM4eLxjFOSbkvrCMBhvAjhVg&s",
-          price: 2500,
-          quantity: 1,
-          priority: 2
-        },
-      ],
-    },
-  ];
+export const monthlyList = [
+  {
+    month: "January",
+    products: [
+      {
+        title: "Protein Supplement",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZldrp8-m9c4LszYTBO297l8yrrSC04Jd-TQ&s",
+        price: 2500, 
+        quantity: 2,
+        priority: 1,
+        category: "Health"
+      },
+      {
+        title: "Running Shoes",
+        image: "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/450ed1df-8e17-4d87-a244-85697874661c/NIKE+REVOLUTION+7.png",
+        price: 3999,
+        quantity: 1,
+        priority: 2,
+        category: "Clothing"
+      },
+    ],
+  },
+  {
+    month: "February",
+    products: [
+      {
+        title: "Yoga Mat",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-FXZ7a6uwuO40PgcayuRDg7G77Ses0K1rOQ&s",
+        price: 1200,
+        quantity: 1,
+        priority: 1,
+        category: "Sports"
+      },
+      {
+        title: "Dumbbell Set",
+        image: "https://m.media-amazon.com/images/I/5155oho74-L._AC_UF894,1000_QL80_.jpg",
+        price: 3500,
+        quantity: 1,
+        priority: 2,
+        category: "Sports"
+      },
+    ],
+  },
+  {
+    month: "March",
+    products: [
+      {
+        title: "Laptop Cooling Pad",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHzzK2GL0mvi-3Io3CP7s9IGy2V7CTWCYUNw&s",
+        price: 999,
+        quantity: 1,
+        priority: 1,
+        category: "Electronics"
+      },
+      {
+        title: "USB-C Hub",
+        image: "https://m.media-amazon.com/images/I/61U5nfjrT0L.jpg",
+        price: 1500,
+        quantity: 1,
+        priority: 2,
+        category: "Electronics"
+      },
+    ],
+  },
+  {
+    month: "April",
+    products: [
+      {
+        title: "Wireless Earbuds",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0l_2Z39XSmqUJfhMI3rkQ3bUImirCK40UdQ&s",
+        price: 2999,
+        quantity: 1,
+        priority: 1,
+        category: "Electronics"
+      },
+      {
+        title: "Smartwatch",
+        image: "https://m.media-amazon.com/images/I/61ZjlBOp+rL.jpg",
+        price: 4999,
+        quantity: 1,
+        priority: 2,
+        category: "Electronics"
+      },
+    ],
+  },
+  {
+    month: "May",
+    products: [
+      {
+        title: "Air Purifier",
+        image: "https://m.media-amazon.com/images/I/71y1LcTgHQL._AC_UF894,1000_QL80_.jpg",
+        price: 8500,
+        quantity: 1,
+        priority: 1,
+        category: "Home"
+      },
+      {
+        title: "Water Bottle",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY5KlMdAAjmcIGewYfxl_Kd3pM-RBjfp4KMQ&s",
+        price: 499,
+        quantity: 2,
+        priority: 2,
+        category: "Groceries"
+      },
+    ],
+  },
+  {
+    month: "June",
+    products: [
+      {
+        title: "Camping Tent",
+        image: "https://m.media-amazon.com/images/I/812wCS-IKuL._AC_UF894,1000_QL80_.jpg",
+        price: 3500,
+        quantity: 1,
+        priority: 1,
+        category: "Sports"
+      },
+      {
+        title: "Portable Grill",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Vs4ykOt0qJOM4eLxjFOSbkvrCMBhvAjhVg&s",
+        price: 2500,
+        quantity: 1,
+        priority: 2,
+        category: "Home"
+      },
+    ],
+  },
+];
+
   

@@ -1,9 +1,10 @@
 import React from 'react'
+import Category from '../components/Categories/Category'
 
-const Categories = () => {
+const Categories:React.FC = () => {
   return (
-    <div>
-      
+    <div className="h-[83vh] overflow-scroll">
+      <Category />
     </div>
   )
 }
