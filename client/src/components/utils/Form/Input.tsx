@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 interface InputProps {
   label?: string;
@@ -9,17 +10,41 @@ interface InputProps {
   inputMode?: "none" | "text" | "decimal" | "numeric" | "search" | "tel" | "email";
 }
 
-const Input: React.FC<InputProps> = ({label,value,onChange, type = "text", className = "", ...props }) => {
+const Input: React.FC<InputProps> = ({
+  label,
+  value,
+  onChange,
+  type = "text",
+  className = "",
+  ...props
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
-    <div className="w-full">
-      {label && <label className="text-md text-zinc-300 ">{label}</label>}
+    <div className="w-full relative">
+      {label && <label className="text-md text-zinc-300">{label}</label>}
       <input
-        type={type}
+        type={type === "password" && !showPassword ? "password" : "text"}
         value={value}
         onChange={onChange}
-        className={`bg-transparent border-[1px] px-4 py-1 outline-none border-zinc-600 rounded-md w-full overflow-hidden mt-1 ${className}`}
+        className={`bg-transparent border-[1px] px-4 py-1 outline-none border-zinc-600 rounded-md w-full overflow-hidden mt-1 focus:border-zinc-500 hover:border-zinc-500 ${className}`}
         {...props}
       />
+      {type === "password" && (
+        <button
+          type="button"
+          onClick={togglePasswordVisibility}
+          className="absolute right-2 top-11 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-500"
+          aria-label={showPassword ? "Hide password" : "Show password"}
+        >
+          {showPassword ? <VisibilityOff /> : <Visibility />}
+        </button>
+      )}
     </div>
   );
 };

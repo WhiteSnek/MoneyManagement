@@ -1,17 +1,17 @@
 import React, { useState, useRef } from "react";
 import Button from "../Button";
-import { ProductDetails } from "../../UserLists/Popup/Popup";
+import { UserDetails } from "../../Sidebar/Settings/Sidebar/Tabs/EditDetails";
 
 interface ImageInputProps {
   label?: string;
   value: string | ArrayBuffer | null | File;
   onChange: (file: File) => void;
   className?: string;
-  details: ProductDetails;
-  setDetails: React.Dispatch<React.SetStateAction<ProductDetails>>;
+  details: UserDetails;
+  setDetails: React.Dispatch<React.SetStateAction<UserDetails>>;
 }
 
-const ImageInput: React.FC<ImageInputProps> = ({
+const AvatarInput: React.FC<ImageInputProps> = ({
   label,
   value,
   onChange,
@@ -25,13 +25,13 @@ const ImageInput: React.FC<ImageInputProps> = ({
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setDetails({ ...details, image: file });
+      setDetails({ ...details, avatar: file });
       const reader = new FileReader();
       reader.onloadend = () => {
         const result = reader.result;
         setImagePreview(result);
         onChange(file); // Call the onChange prop with the selected file
-        setDetails({ ...details, imageUrl: result as string }); // Use reader.result instead of imagePreview
+        setDetails({ ...details, avatarUrl: result as string }); // Use reader.result instead of imagePreview
       };
       reader.readAsDataURL(file);
     }
@@ -52,14 +52,14 @@ const ImageInput: React.FC<ImageInputProps> = ({
           label="Upload Image"
           type="button"
           className="bg-zinc-900 hover:bg-zinc-950"
-          onClickFunc={() => fileInputRef.current?.click()} // Use useRef instead of document.querySelector
+          onClickFunc={() => fileInputRef.current?.click()} 
         />
         {imagePreview && (
           <div className="mt-2">
             <img
               src={imagePreview as string}
               alt="Preview"
-              className="mt-2 rounded-md h-40 aspect-square object-cover"
+              className="mt-2 rounded-full h-40 aspect-square object-cover"
             />
           </div>
         )}
@@ -68,4 +68,4 @@ const ImageInput: React.FC<ImageInputProps> = ({
   );
 };
 
-export default ImageInput;
+export default AvatarInput;

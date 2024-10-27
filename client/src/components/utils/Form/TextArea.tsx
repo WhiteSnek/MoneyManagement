@@ -14,7 +14,7 @@ const TextArea: React.FC<TextAreaProps> = ({label,value,onChange, className = ""
       <textarea
         value={value}
         onChange={onChange}
-        className={`bg-transparent mt-1 border-[1px] px-4 py-1 outline-none border-zinc-600 rounded-md w-full overflow-hidden ${className}`}
+        className={`bg-transparent mt-1 border-[1px] px-4 py-1 outline-none border-zinc-600 focus:border-zinc-500 hover:border-zinc-500  rounded-md w-full overflow-hidden ${className}`}
         {...props}
       />
     </div>

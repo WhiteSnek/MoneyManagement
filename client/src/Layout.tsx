@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import App from './App'
-import { Categories, Dashboard, Lists } from './pages'
+import { Categories, Dashboard, Lists, Login } from './pages'
 import CurrencyProvider from './providers/CurrencyProvider'
 
 const Layout:React.FC = () => {
@@ -11,6 +11,7 @@ const Layout:React.FC = () => {
                 <Route path='dashboard' element={<Dashboard />}/>
                 <Route path='lists' element={<Lists />} />
                 <Route path='categories' element={<Categories />}/>
+                <Route path='login' element={<Login />}/>
             </Route>
         )
     )
