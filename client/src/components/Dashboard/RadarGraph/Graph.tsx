@@ -90,9 +90,9 @@ const RadarGraph: React.FC = () => {
   }, [data, dataType]); 
 
   return (
-    <div className="px-10 py-4 border-2 border-teal-500 rounded-lg ml-4">
+    <div className="px-4 sm:px-10 py-4 ml-4">
       <div className="mb-4">
-      <Select title="Select Basis:" value={dataType} onChange={(e) => setDataType(e.target.value as "amount" | "price")} options={[{label: "Amount", value: "amount"}, {label: "Price",value: "price"}]} />
+      <Select title="Select Basis:" value={dataType} onChange={(e) => setDataType(e.target.value as "amount" | "price")} options={[{label: "Amount", value: "amount"}, {label: "Price",value: "price"}]} className="bg-zinc-900" />
       </div>
       <canvas ref={chartRef}></canvas>
     </div>

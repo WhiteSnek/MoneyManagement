@@ -1,14 +1,15 @@
 import React, { useState, useRef } from "react";
 import Button from "../Button";
 import { UserDetails } from "../../Sidebar/Settings/Sidebar/Tabs/EditDetails";
+import { RegisterUser } from "../../Register/RegisterBlock";
 
 interface ImageInputProps {
   label?: string;
   value: string | ArrayBuffer | null | File;
   onChange: (file: File) => void;
   className?: string;
-  details: UserDetails;
-  setDetails: React.Dispatch<React.SetStateAction<UserDetails>>;
+  details: UserDetails | RegisterUser;
+  setDetails: React.Dispatch<React.SetStateAction<UserDetails>> | React.Dispatch<React.SetStateAction<RegisterUser>>;
 }
 
 const AvatarInput: React.FC<ImageInputProps> = ({

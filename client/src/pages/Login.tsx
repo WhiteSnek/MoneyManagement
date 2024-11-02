@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Input from '../components/utils/Form/Input';
 import Button from '../components/utils/Button';
 import { Google, Microsoft } from '@mui/icons-material';
+import { useUser } from '../providers/UserProvider';
+import { user } from '../constants/user';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginCredentials {
   email: string;
@@ -13,21 +16,19 @@ const Login: React.FC = () => {
     email: '',
     password: ''
   });
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [error, setError] = useState<string>('');
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (details.password !== confirmPassword) {
-      setError('Passwords do not match');
-    } else {
-      setError('');
-      // Proceed with login logic
-      console.log('Form submitted', details);
-    }
+    e.preventDefault()
+    console.log('Form submitted', details);
   };
 
+  const {setUser} = useUser()
+  const navigate = useNavigate()
+  const loginUser = () => {
+    setUser(user)
+    navigate('/dashboard')
+  }
   return (
     <div className="flex justify-center items-center bg-zinc-900">
       <div className="bg-zinc-800 text-zinc-100 rounded-lg p-6 sm:p-8 shadow-3xl max-w-xs sm:max-w-2xl w-full relative flex flex-col items-center">
@@ -61,19 +62,11 @@ const Login: React.FC = () => {
             label="Password :"
             type="password"
           />
-          <Input
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            label="Confirm Password :"
-            type="password"
-          />
-          
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-
           <Button
             type="submit"
             label="Login"
             className="hover:-translate-y-1 bg-zinc-900 hover:bg-zinc-950"
+            onClickFunc={loginUser}
           />
         </form>
       </div>

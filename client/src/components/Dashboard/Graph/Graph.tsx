@@ -37,6 +37,8 @@ const Graph: React.FC = () => {
                 data: data,
                 borderColor: "rgb(13, 148, 136)",
                 backgroundColor: "rgba(13, 148, 136, 0.3)",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 1,
                 fill: {
                   target: "origin",
@@ -92,9 +94,9 @@ const Graph: React.FC = () => {
   }, [data]);
 
   return (
-    <div className="px-4 py-2 sm:px-10 sm:py-6 border-2 border-teal-500 rounded-lg">
+    <div className="px-4 py-2 sm:px-10 sm:py-6">
       <div className="mb-4">
-        <Select title="Select Basis:" value={dataType} onChange={(e) => setDataType(e.target.value as "amount" | "price")} options={[{label: "Amount", value: "amount"}, {label: "Price",value: "price"}]} />
+        <Select title="Select Basis:" value={dataType} onChange={(e) => setDataType(e.target.value as "amount" | "price")} options={[{label: "Amount", value: "amount"}, {label: "Price",value: "price"}]} className="bg-zinc-900" />
         
       </div>
       <canvas ref={chartRef}></canvas>

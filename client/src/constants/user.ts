@@ -1,7 +1,14 @@
 export const user = {
-    name: 'John Doe',
-    image: 'https://pics.craiyon.com/2023-07-02/6c25e75ca2c94610bb54b14347fccd75.webp'
-}
+  fullname: "John Doe",
+  username: "johndoe123",
+  email: "johndoe@example.com",
+  avatar: 'https://pics.craiyon.com/2023-07-02/6c25e75ca2c94610bb54b14347fccd75.webp',
+  dob: "1990-05-15",
+  gender: "male",
+  monthlyIncome: "5000",
+  creditDate: "2024-11-01"
+};
+
 
 export const history = [
     {

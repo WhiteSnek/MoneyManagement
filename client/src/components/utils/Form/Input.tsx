@@ -25,11 +25,13 @@ const Input: React.FC<InputProps> = ({
     setShowPassword((prev) => !prev);
   };
 
+  const inputType = type === "password" && showPassword ? "text" : type;
+
   return (
     <div className="w-full relative">
       {label && <label className="text-md text-zinc-300">{label}</label>}
       <input
-        type={type === "password" && !showPassword ? "password" : "text"}
+        type={inputType}
         value={value}
         onChange={onChange}
         className={`bg-transparent border-[1px] px-4 py-1 outline-none border-zinc-600 rounded-md w-full overflow-hidden mt-1 focus:border-zinc-500 hover:border-zinc-500 ${className}`}
