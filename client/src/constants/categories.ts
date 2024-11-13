@@ -5,6 +5,6 @@ export const productCategories: string[] = [
   "Health",
   "Groceries",
   "Sports",
-  "Books",
-  "Toys",
+  "Bills",
+  "Investments",
 ];

@@ -1,18 +1,16 @@
 import React from 'react'
 import Icon from './Icon'
 import Name from './Name'
-import { UserProfile } from '../../../types/UserTypes'
 import DropdownIcon from '../../utils/DropdownIcon'
+import { useUser } from '../../../providers/UserProvider'
 
-interface ProfileProps {
-    user: UserProfile
-}
-
-const Profile:React.FC<ProfileProps> = ({user}) => {
+const Profile:React.FC = () => {
+  const {user} = useUser();
+  if(!user) return null
   return (
     <div className='flex gap-4 items-center hover:bg-zinc-900 py-2 px-4 rounded-lg cursor-pointer hover:translate-x-1 transition-all'>
-      <Icon src={user.image} alt={user.name} />
-      {window.innerWidth > 768 && <Name name={user.name} />}
+      <Icon src={user.avatar} alt={user.fullname} />
+      {window.innerWidth > 768 && <Name name={user.fullname} />}
       <DropdownIcon />
     </div>
   )

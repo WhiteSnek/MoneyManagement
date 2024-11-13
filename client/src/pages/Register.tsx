@@ -3,7 +3,7 @@ import RegisterBlock from '../components/Register/RegisterBlock'
 
 const Register:React.FC = () => {
   return (
-    <div className='h-[83vh] overflow-scroll'>
+    <div className=''>
       <RegisterBlock  />
 
     </div>

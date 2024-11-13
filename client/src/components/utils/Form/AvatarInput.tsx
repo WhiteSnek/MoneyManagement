@@ -1,38 +1,30 @@
 import React, { useState, useRef } from "react";
 import Button from "../Button";
-import { UserDetails } from "../../Sidebar/Settings/Sidebar/Tabs/EditDetails";
-import { RegisterUser } from "../../Register/RegisterBlock";
 
-interface ImageInputProps {
+interface AvatarInputProps {
   label?: string;
-  value: string | ArrayBuffer | null | File;
-  onChange: (file: File) => void;
+  avatarUrl: string | null;
+  setAvatar: (file: File, url: string) => void;
   className?: string;
-  details: UserDetails | RegisterUser;
-  setDetails: React.Dispatch<React.SetStateAction<UserDetails>> | React.Dispatch<React.SetStateAction<RegisterUser>>;
 }
 
-const AvatarInput: React.FC<ImageInputProps> = ({
+const AvatarInput: React.FC<AvatarInputProps> = ({
   label,
-  value,
-  onChange,
-  details,
-  setDetails,
+  avatarUrl,
+  setAvatar,
   className = "",
 }) => {
-  const [imagePreview, setImagePreview] = useState<string | ArrayBuffer | null | File>(value);
+  const [imagePreview, setImagePreview] = useState<string | null>(avatarUrl);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setDetails({ ...details, avatar: file });
       const reader = new FileReader();
       reader.onloadend = () => {
-        const result = reader.result;
+        const result = reader.result as string;
         setImagePreview(result);
-        onChange(file); // Call the onChange prop with the selected file
-        setDetails({ ...details, avatarUrl: result as string }); // Use reader.result instead of imagePreview
+        setAvatar(file, result); // Update avatar file and URL
       };
       reader.readAsDataURL(file);
     }
@@ -41,7 +33,7 @@ const AvatarInput: React.FC<ImageInputProps> = ({
   return (
     <div className={`w-full ${className}`}>
       {label && <label className="text-md text-zinc-300 mb-1">{label}</label>}
-      <div className="flex justify-center mt-1 p-4 border-[1px] border-zinc-700 focus:border-zinc-500 hover:border-zinc-500  rounded-md items-center flex-col">
+      <div className="flex justify-center mt-1 p-4 border-[1px] border-zinc-700 hover:border-zinc-500 rounded-md items-center flex-col">
         <input
           ref={fileInputRef}
           type="file"
@@ -58,9 +50,9 @@ const AvatarInput: React.FC<ImageInputProps> = ({
         {imagePreview && (
           <div className="mt-2">
             <img
-              src={imagePreview as string}
+              src={imagePreview}
               alt="Preview"
-              className="mt-2 rounded-full h-40 aspect-square object-cover"
+              className="rounded-full h-40 aspect-square object-cover"
             />
           </div>
         )}

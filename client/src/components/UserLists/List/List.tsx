@@ -29,6 +29,7 @@ export interface Products {
   title: string;
   image: string;
   price: number;
+  specifications: string;
   quantity: number;
   priority: number;
 }

@@ -1,5 +1,6 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import { User } from '../types/UserTypes'
+import axios, { AxiosResponse } from 'axios';
 
 interface UserContextType {
     user: User | undefined;
@@ -24,6 +25,17 @@ interface UserProviderProps {
 
 const UserProvider:React.FC<UserProviderProps> = ({children}) => {
     const [user, setUser] = useState<User | undefined>(undefined)
+    const getUserProfile = async () => {
+        try {
+          const response: AxiosResponse<User> = await axios.get('/user/profile', { withCredentials: true });
+          setUser(response.data);
+        } catch (error) {
+          console.log("Error fetching profile:", error);
+        }
+    };
+    useEffect(() => {
+      getUserProfile();
+    }, []);
   return (
     <UserContext.Provider value={{user, setUser}}>
       {children}

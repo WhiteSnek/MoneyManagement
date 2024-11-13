@@ -6,6 +6,7 @@ import { useUser } from "./providers/UserProvider";
 
 function App() {
   const {user} = useUser()
+  console.log(user)
   return (
     <>
       <Header />

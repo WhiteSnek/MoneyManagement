@@ -17,15 +17,14 @@ const Header:React.FC = () => {
       <Button label='Login' icon={Login} onClickFunc={loginButton} className='hover:-translate-y-1 bg-zinc-900 hover:bg-zinc-950'/>
     </div>
   }
-  const {fullname, avatar} = user;
   return (
     <div className='m-4 rounded-md bg-zinc-800 flex justify-between p-2 text-white font-sans shadow-xl items-center'>
       <div>
-        <Profile user={{name: fullname, image: avatar}} />
+        <Profile />
       </div>
       <div className='px-4 flex gap-2 items-center'>
         <Currency />
-        <Amount amount={10000} />
+        <Amount amount={user.monthlyIncome} />
       </div>
     </div>
   )

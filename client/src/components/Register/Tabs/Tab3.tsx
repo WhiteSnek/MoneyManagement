@@ -13,7 +13,7 @@ const Tab3:React.FC<Tab3Props> = ({details, setDetails}) => {
       <h1 className='text-xl font-bold pb-4'>Financial Details</h1>
       <div className='grid grid-cols-1 gap-4'>
       <Input value={details.monthlyIncome} label='Monthly Income:' type='text' inputMode='numeric' onChange={(e)=>setDetails({...details, monthlyIncome: e.target.value})} />
-      <Input value={details.creditDate} label='Credit Date:' type='date' onChange={(e)=>setDetails({...details, creditDate: e.target.value})} />
+      <Input value={details.creditDate} label='Credit Date:' onChange={(e)=>setDetails({...details, creditDate: e.target.value})} />
       </div>
       
     </div>
