@@ -5,22 +5,16 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useCurrency } from '../../../../providers/CurrencyProvider';
 import Popup from './Popup';
+import { ItemType } from '../../../../types/ListType';
 
 interface ProductProps {
-  product: {
-    title: string;
-    image: string;
-    specifications: string;
-    price: number;
-    quantity: number;
-    priority: number;
-  };
+  product: ItemType
 }
 
 const Product: React.FC<ProductProps> = ({ product }) => {
   const {currency} = useCurrency()
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
-    id: product.title,
+    id: product.name,
   });
   const [open, setOpen] = useState<boolean>(false)
   const style = {
@@ -31,7 +25,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
     setOpen(!open)
   }
   return (
-    <div className='text-zinc-100 p-2 rounded-md bg-zinc-900'>
+    <div className={`text-zinc-100 p-2 rounded-md bg-zinc-900 ${product.bought && 'opacity-50'}`}>
     <button
       ref={setNodeRef}
       style={style}
@@ -39,9 +33,10 @@ const Product: React.FC<ProductProps> = ({ product }) => {
       {...listeners}
       onClick={togglePopup}
       className="w-full flex justify-between"
+      disabled={product.bought}
     >
       <div className='flex flex-col items-start'>
-        <h1 className="text-lg font-bold">{truncateText(product.title, 20)}</h1>
+        <h1 className="text-lg font-bold">{truncateText(product.name, 20)}</h1>
         <p className="text-lg font-thin">
           Price: <sup>{currency.symbol}</sup> {formatAmount(convertCurrency(product.price, currency.code))}
         </p>
@@ -49,14 +44,14 @@ const Product: React.FC<ProductProps> = ({ product }) => {
       </div>
       <div>
         <img
-          src={product.image}
-          alt={product.title}
+          src={product.displayImage}
+          alt={product.name}
           className="h-20 aspect-square object-cover rounded-md"
         />
       </div>
       
     </button>
-    {open && <Popup product={product} togglePopup={togglePopup}/>}
+    {open && <Popup id={product.id} togglePopup={togglePopup}/>}
     </div>
   );
 };

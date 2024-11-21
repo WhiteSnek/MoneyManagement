@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps {
-  label: string;
+  label?: string;
   type?:"button" | "submit" | "reset" | undefined
   icon?: React.ElementType; 
   onClickFunc?: (event: React.MouseEvent<HTMLButtonElement>) => void;

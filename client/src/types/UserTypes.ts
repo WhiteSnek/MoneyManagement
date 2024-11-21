@@ -23,6 +23,7 @@ export interface User {
     avatar: string;
     dob: string;
     gender: string;
+    budget: number;
     monthlyIncome: number;
     creditDate: number;
     createdAt: string;

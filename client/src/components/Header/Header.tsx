@@ -24,7 +24,7 @@ const Header:React.FC = () => {
       </div>
       <div className='px-4 flex gap-2 items-center'>
         <Currency />
-        <Amount amount={user.monthlyIncome} />
+        <Amount amount={user.budget} />
       </div>
     </div>
   )

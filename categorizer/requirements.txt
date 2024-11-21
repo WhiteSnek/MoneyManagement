@@ -1,3 +1,4 @@
 flask
+transformers
+pandas
 torch
-transformers==4.11.3

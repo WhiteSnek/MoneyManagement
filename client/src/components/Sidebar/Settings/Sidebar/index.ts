@@ -1,4 +1,4 @@
-import { AccountBox, ColorLens } from "@mui/icons-material";
+import { AccountBox, ColorLens, Savings } from "@mui/icons-material";
 
 export const settings = [
     {
@@ -10,5 +10,10 @@ export const settings = [
         label: "Edit Details",
         tab: "edit-details",
         icon: AccountBox
+    },
+    {
+        label: "Add Bonus",
+        tab: "add-bonus",
+        icon: Savings
     },
 ]

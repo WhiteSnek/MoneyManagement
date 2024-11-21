@@ -3,6 +3,7 @@ import { Close } from "@mui/icons-material";
 import SettingsSidebar from "./Sidebar/SettingsSidebar";
 import Appearance from "./Sidebar/Tabs/Appearance";
 import EditDetails from "./Sidebar/Tabs/EditDetails";
+import AddBonus from "./Sidebar/Tabs/AddBonus";
 
 interface SettingModalProps
  {
@@ -15,6 +16,8 @@ const renderTab = (activeTab: string) => {
       return <Appearance />;
     case 'edit-details':
       return <EditDetails />
+    case 'add-bonus':
+      return <AddBonus />
     default:
       return null;
   }

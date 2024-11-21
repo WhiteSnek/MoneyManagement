@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Product from "./Product/Product";
 import { getTotalPrice } from "../../../utilityFunctions/getTotalPrice";
 import { convertCurrency, formatAmount } from "../../../utilityFunctions/currencyUtilities";
-import { Add } from "@mui/icons-material";
+import { Add, Delete } from "@mui/icons-material";
 import Popup from "../Popup/Popup";
 import {
   DndContext,
@@ -17,35 +17,29 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useCurrency } from "../../../providers/CurrencyProvider";
+import { ItemType, ListType } from "../../../types/ListType";
+import Confirm from "./Confirm/Confirm";
 
 interface ListProps {
-  list: {
-    month: string;
-    products: Products[];
-  };
+  list: ListType
 }
 
-export interface Products {
-  title: string;
-  image: string;
-  price: number;
-  specifications: string;
-  quantity: number;
-  priority: number;
-}
 
-const List: React.FC<ListProps> = ({ list }) => {
+const List: React.FC<ListProps> = ({list}) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [products, setProducts] = useState<Products[]>(list.products);
+  const [products, setProducts] = useState<ItemType[]>(list.items);
   const {currency} = useCurrency()
   const togglePopup = () => {
     setOpen(!open);
   };
-
+  const [openConfirm, setOpenConfirm] = useState<boolean>(false)
   const [totalPrice, setTotalPrice] = useState<number>(0);
-
+  const toggleConfirm = () => {
+    setOpenConfirm(!openConfirm);
+  };
   useEffect(() => {
-    setTotalPrice(getTotalPrice(products));
+    const unboughtProducts = products.filter(product => !product.bought)
+    setTotalPrice(getTotalPrice(unboughtProducts));
   }, [products, currency]);
 
   const sensors = useSensors(
@@ -61,10 +55,10 @@ const List: React.FC<ListProps> = ({ list }) => {
     if (active.id !== over.id) {
       setProducts((prevProducts) => {
         const oldIndex = prevProducts.findIndex(
-          (product) => product.title === active.id
+          (product) => product.name === active.id
         );
         const newIndex = prevProducts.findIndex(
-          (product) => product.title === over.id
+          (product) => product.name === over.id
         );
         const newProducts = arrayMove(prevProducts, oldIndex, newIndex);
         
@@ -79,14 +73,19 @@ const List: React.FC<ListProps> = ({ list }) => {
   return (
     <div className="bg-zinc-800 p-2 rounded-md shadow-lg relative">
       <h1 className="text-zinc-100 text-xl font-bold text-center py-3">
-        {list.month}
+        {list.title.toUpperCase()}
       </h1>
+      <div className="flex justify-center items-center absolute top-4 right-3 text-white gap-3">
       <button
         onClick={togglePopup}
-        className="text-white absolute top-4 right-3 flex justify-center items-center p-1 hover:bg-zinc-900 rounded-full"
+        className="flex justify-center items-center p-1 hover:bg-zinc-900 rounded-full"
       >
-        <Add sx={{ fontSize: 30 }} />
+        <Add sx={{ fontSize: 25 }} />
       </button>
+      <button onClick={toggleConfirm} className="flex justify-center items-center p-1 hover:bg-zinc-900 rounded-full">
+        <Delete sx={{fontSize: 25}} />
+      </button>
+      </div>
       <div className="py-3 h-80 overflow-y-scroll overflow-x-hidden">
         <DndContext
           sensors={sensors}
@@ -94,12 +93,12 @@ const List: React.FC<ListProps> = ({ list }) => {
           onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={products.map((product) => product.title)}
+            items={products.map((product) => product.name)}
             strategy={verticalListSortingStrategy}
           >
             <ol className="flex flex-col gap-2">
               {products.map((product) => (
-                <Product key={product.title} product={product} />
+                <Product key={product.id} product={product} />
               ))}
             </ol>
           </SortableContext>
@@ -114,11 +113,11 @@ const List: React.FC<ListProps> = ({ list }) => {
       {open && (
         <Popup
           togglePopup={togglePopup}
-          month={list.month}
-          setProducts={setProducts}
-          products={products}
+          month={list.title}
+          listId={list.id}
         />
       )}
+      {openConfirm && <Confirm toggleConfirm={toggleConfirm} listId={list.id} />}
     </div>
   );
 };

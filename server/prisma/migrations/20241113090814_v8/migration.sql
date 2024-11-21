@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "items" ALTER COLUMN "priority" DROP NOT NULL,
+ALTER COLUMN "category" DROP NOT NULL,
+ALTER COLUMN "bought" DROP NOT NULL;

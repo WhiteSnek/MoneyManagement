@@ -5,6 +5,8 @@ import axios, { AxiosResponse } from 'axios';
 interface UserContextType {
     user: User | undefined;
     setUser: React.Dispatch<React.SetStateAction<User | undefined>>
+    getUserProfile: () => void
+    addBonus: (bonus: number) => Promise<void>
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -33,11 +35,20 @@ const UserProvider:React.FC<UserProviderProps> = ({children}) => {
           console.log("Error fetching profile:", error);
         }
     };
+    const addBonus = async (bonus: number): Promise<void> => {
+      try {
+        const response: AxiosResponse<{message: string, bonus: User}> = await axios.patch('/user/add-bonus',{bonus}, {withCredentials: true})
+        setUser(response.data.bonus)
+      } catch (error) {
+        console.log("Error fetching profile:", error);
+      }
+    }
     useEffect(() => {
       getUserProfile();
     }, []);
+
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{user, setUser, getUserProfile, addBonus}}>
       {children}
     </UserContext.Provider>
   )

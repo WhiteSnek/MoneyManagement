@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState, useEffect } from "react";
-import { monthlyList } from "../constants/user";
+import { useList } from "./ListProvider";
+
 interface Category {
   name: string;
   price: number;
@@ -36,35 +37,40 @@ interface GraphProviderProps {
   children: ReactNode;
 }
 
-
 const GraphProvider: React.FC<GraphProviderProps> = ({ children }) => {
   const [Graph, setGraph] = useState<Graph>({
     category: [],
     month: [],
   });
+  const { lists, getLists } = useList();
 
   useEffect(() => {
+    getLists();
+  }, []);
+
+  useEffect(() => {
+    if (!lists) return; 
+
     const categoryMap: Record<string, { price: number; count: number }> = {};
     const monthMap: Record<string, { price: number; count: number }> = {};
-
-    monthlyList.forEach(({ month, products }) => {
-
+    
+    lists.forEach(({ title, items }) => {
       const monthTotals = { price: 0, count: 0 };
-
-      products.forEach(({ price, quantity, category }) => {
+      const boughtItems = items.filter(item => item.bought)
+      boughtItems.forEach(({ price, quantity, category }) => {
+        category = category[0].toUpperCase()+category.slice(1)
         if (!categoryMap[category]) {
           categoryMap[category] = { price: 0, count: 0 };
         }
-        categoryMap[category].price += price; 
-        categoryMap[category].count += quantity; 
+        categoryMap[category].price += price;
+        categoryMap[category].count += quantity;
 
-        monthTotals.price += price * quantity; 
-        monthTotals.count += quantity; 
+        monthTotals.price += price * quantity;
+        monthTotals.count += quantity;
       });
 
-      monthMap[month] = monthTotals; 
+      monthMap[title[0].toUpperCase()+title.slice(1)] = monthTotals;
     });
-
 
     const categoriesArray = Object.entries(categoryMap).map(([name, { price, count }]) => ({
       name,
@@ -82,7 +88,7 @@ const GraphProvider: React.FC<GraphProviderProps> = ({ children }) => {
       category: categoriesArray,
       month: monthsArray,
     });
-  }, []); 
+  }, [lists]);
 
   return (
     <GraphContext.Provider value={{ Graph, setGraph }}>

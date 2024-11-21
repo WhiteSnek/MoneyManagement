@@ -1,22 +1,40 @@
-# app.py
 from flask import Flask, request, jsonify
-from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
-import torch
+from transformers import pipeline
+import pandas as pd
 
 # Initialize Flask app
 app = Flask(__name__)
 
-# Load model and tokenizer
+# Define categories
 categories = ["Electronics", "Clothing", "Home", "Health", "Groceries", "Sports", "Bills", "Investments"]
-tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased")
-model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=len(categories))
 
-# Prediction function
+# Load your dataset
+def load_dataset(filepath="product_data.csv"):
+    try:
+        df = pd.read_csv(filepath)
+        return df
+    except Exception as e:
+        print(f"Error loading dataset: {e}")
+        return pd.DataFrame(columns=["product_name", "category"])
+
+# Load dataset for reference (e.g., a labeled dataset of product names)
+dataset = load_dataset()
+
+# Initialize zero-shot classification pipeline
+classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
+
+# Prediction function using zero-shot classification with dataset reference
 def predict_category(product_name):
-    inputs = tokenizer(product_name, return_tensors="pt", truncation=True, padding=True, max_length=64)
-    outputs = model(**inputs)
-    predicted_category = torch.argmax(outputs.logits, dim=1).item()
-    return categories[predicted_category]
+    # Find similar items in dataset for better context (optional step)
+    similar_items = dataset[dataset["product_name"].str.contains(product_name.split()[0], case=False, na=False)]
+    
+    # Use zero-shot classifier for primary prediction
+    result = classifier(product_name, candidate_labels=categories)
+    
+    # Display similar items (for optional inspection)
+    print("Similar items in dataset:", similar_items)
+    
+    return result["labels"][0]  # Best-matching category
 
 # API endpoint to categorize product
 @app.route('/predict', methods=['POST'])
