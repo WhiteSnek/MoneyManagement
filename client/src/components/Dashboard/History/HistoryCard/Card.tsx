@@ -3,6 +3,7 @@ import { convertCurrency, formatAmount } from "../../../../utilityFunctions/curr
 import { useCurrency } from "../../../../providers/CurrencyProvider";
 import { BoughtItemsType } from "../../../../types/ListType";
 import { formatDate } from "../../../../utilityFunctions/formatDate";
+import { icons } from "../../../../constants/services";
 
 interface CardProps {
   history: BoughtItemsType
@@ -10,9 +11,26 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ history }) => {
   const {currency} = useCurrency()
+
+  const serviceIcon = history.isService
+  ? icons.find((item) => item.title === history.name)?.icon || null
+  : null;
+
   return (
     <div className="p-4 bg-zinc-900 shadow-sm hover:-translate-y-2 transition-all hover:shadow-xl cursor-pointer rounded-md flex flex-col">
-      <img src={history.displayImage} alt={history.name} className="h-52 aspect-square object-cover rounded-md" />
+      {serviceIcon ? (
+            <img
+              src={serviceIcon} 
+              alt={history.name}
+              className="h-52 aspect-square object-cover rounded-md"
+            />
+          ) : (
+            <img
+              src={history.displayImage} 
+              alt={history.name}
+              className="h-52 aspect-square object-cover rounded-md"
+            />
+          )}
       <div className="flex flex-col gap-2 py-4">
         <div>
         <h2 className="text-lg font-bold text-zinc-300">{history.name}</h2>

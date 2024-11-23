@@ -5,6 +5,7 @@ import AddManuallyButton from "./AddManual/AddManuallyButton";
 import AddManualForm from "./AddManual/AddManualForm";
 import AddServiceNo from "./AddUrl/AddServiceNo";
 import { AddItem } from "../../../types/ListType";
+import AddService from "./AddManual/AddService";
 
 interface PopupProps {
   togglePopup: () => void;
@@ -55,11 +56,10 @@ const Popup: React.FC<PopupProps> = ({
 
         {!manual ? 
           service ? <AddServiceNo /> : <AddUrl />
-        : (
+        : service ? <AddService details={details} setDetails={setDetails} togglePopup={togglePopup} /> :(
           <AddManualForm
             details={details}
             setDetails={setDetails}
-            service={service}
             togglePopup={togglePopup}
 
           />

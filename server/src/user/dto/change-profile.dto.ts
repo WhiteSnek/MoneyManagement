@@ -6,11 +6,11 @@ export class ChangeProfileDto {
     @IsOptional()
     email: string
 
-    @IsNumber()
+    @IsString()
     @IsOptional()
-    creditDate: number
+    creditDate: string
 
-    @IsNumber()
+    @IsString()
     @IsOptional()
-    monthlyIncome: number
+    monthlyIncome: string
 }

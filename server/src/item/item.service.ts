@@ -94,6 +94,7 @@ export class ItemService {
           quantity: true,
           specifications: true,
           updatedAt: true,
+          isService: true,
         },
       });
       return items;

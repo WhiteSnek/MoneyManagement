@@ -41,7 +41,7 @@ const ItemProvider: React.FC<ItemProviderProps> = ({ children }) => {
       isService,
       listId,
     } = details;
-    formData.append("displayImage", displayImage as File); // Add the avatar file
+    if(displayImage) formData.append("displayImage", displayImage as File); 
     formData.append("name", name);
     formData.append("specifications", specifications);
     formData.append("category", category);

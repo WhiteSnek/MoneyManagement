@@ -47,7 +47,7 @@ model Item {
   specifications String?
   price Decimal @db.Decimal(10, 2)
   link String
-  displayImage String
+  displayImage String?
   quantity Int?
   priority Int?  @default(autoincrement())
   isService Boolean

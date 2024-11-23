@@ -100,11 +100,13 @@ export class UserService {
       if (avatarUrl) {
         updateData.avatar = avatarUrl;
       }
+      const monthlyIncome = parseFloat(dto.monthlyIncome)
       if (dto.monthlyIncome) {
-        updateData.monthlyIncome = dto.monthlyIncome;
+        updateData.monthlyIncome = monthlyIncome;
       }
+      const creditDate = parseInt(dto.creditDate)
       if (dto.creditDate) {
-        updateData.creditDate = dto.creditDate;
+        updateData.creditDate = creditDate;
       }
   
       // Update user in the database

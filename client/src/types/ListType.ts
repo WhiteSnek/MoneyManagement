@@ -13,6 +13,7 @@ export interface ItemType {
     priority: number;
     category: string;
     bought: boolean;
+    isService: boolean;
 }
 
 export interface BoughtItemsType {
@@ -24,7 +25,8 @@ export interface BoughtItemsType {
     quantity: number;
     priority: number;
     category: string;
-    updatedAt: string
+    updatedAt: string;
+    isService: boolean;
 }
 
 export interface ItemDetails {

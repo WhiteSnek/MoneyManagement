@@ -6,6 +6,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { useCurrency } from '../../../../providers/CurrencyProvider';
 import Popup from './Popup';
 import { ItemType } from '../../../../types/ListType';
+import { icons } from '../../../../constants/services';
 
 interface ProductProps {
   product: ItemType
@@ -24,6 +25,11 @@ const Product: React.FC<ProductProps> = ({ product }) => {
   const togglePopup = () => {
     setOpen(!open)
   }
+
+  const serviceIcon = product.isService
+  ? icons.find((item) => item.title === product.name)?.icon || null
+  : null;
+
   return (
     <div className={`text-zinc-100 p-2 rounded-md bg-zinc-900 ${product.bought && 'opacity-50'}`}>
     <button
@@ -43,11 +49,19 @@ const Product: React.FC<ProductProps> = ({ product }) => {
         <p className="text-lg text-zinc-500">Quantity: {product.quantity}</p>
       </div>
       <div>
-        <img
-          src={product.displayImage}
-          alt={product.name}
-          className="h-20 aspect-square object-cover rounded-md"
-        />
+      {serviceIcon ? (
+            <img
+              src={serviceIcon} 
+              alt={product.name}
+              className="h-20 aspect-square object-cover rounded-md"
+            />
+          ) : (
+            <img
+              src={product.displayImage} 
+              alt={product.name}
+              className="h-20 aspect-square object-cover rounded-md"
+            />
+          )}
       </div>
       
     </button>

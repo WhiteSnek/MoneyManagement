@@ -14,15 +14,19 @@ const UserLists: React.FC = () => {
   }, []);
   if (!lists) return <div>Something went wrong...</div>;
   const sortedLists = sortListsByMonth(lists);
+
+  const toggleAdd = () => {
+    setAdd(!add)
+  }
   return (
     <div className="relative">
       <div className="flex justify-between items-center pr-10">
       <h1 className="text-xl sm:text-3xl text-zinc-100 font-bold p-4">
         Monthly Lists
       </h1>
-      <Button label="Add List" className="bg-zinc-200 hover:bg-zinc-300 text-black" icon={Add} onClickFunc={()=>setAdd(!add)}/>
+      <Button label="Add List" className="bg-zinc-200 hover:bg-zinc-300 text-black" icon={Add} onClickFunc={toggleAdd}/>
       {
-        add && <AddList />
+        add && <AddList toggleAdd={toggleAdd} />
       }
       </div>
       <div className="grid px-4 grid-cols-1 sm:grid-cols-3 gap-4">

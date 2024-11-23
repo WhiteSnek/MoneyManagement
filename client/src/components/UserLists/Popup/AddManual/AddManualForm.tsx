@@ -4,7 +4,6 @@ import TextArea from "../../../utils/Form/TextArea";
 import ImageInput from "../../../utils/Form/ImageInput";
 import Button from "../../../utils/Button";
 import { useCurrency } from "../../../../providers/CurrencyProvider";
-import IconInput from "../../../utils/Form/IconInput";
 import { AddItem } from "../../../../types/ListType";
 import { useItem } from "../../../../providers/ItemProvider";
 import { CircularLoader } from "../../../utils/Loaders";
@@ -15,14 +14,12 @@ interface AddManualFormProps {
   details: AddItem;
   setDetails: React.Dispatch<React.SetStateAction<AddItem>>;
   togglePopup: () => void;
-  service: boolean;
 }
 
 const AddManualForm: React.FC<AddManualFormProps> = ({
   details,
   setDetails,
   togglePopup,
-  service,
 }) => {
   const { currency } = useCurrency();
   const { addItem } = useItem();
@@ -34,10 +31,7 @@ const AddManualForm: React.FC<AddManualFormProps> = ({
     setImageUrl(url)
   };
   
-  const categories = service ? [
-    {label : 'Bills', value: 'bills'},
-    {label : 'Investments', value: 'investments'}
-  ] : [
+  const categories = [
     {label : 'Clothing', value: 'clothing'},
     {label : 'Electronics', value: 'electronics'},
     {label : 'Home', value: 'home'},
@@ -60,7 +54,7 @@ const AddManualForm: React.FC<AddManualFormProps> = ({
       price,
       displayImage,
       quantity,
-      isService: service ? "true" : "false",
+      isService: "false",
       category,
       link: "",
       listId
@@ -92,7 +86,6 @@ const AddManualForm: React.FC<AddManualFormProps> = ({
         value={details.name}
         onChange={(e) => setDetails({ ...details, name: e.target.value })}
       />
-      {!service && (
         <TextArea
           label="Specifications:"
           value={details.specifications}
@@ -100,21 +93,12 @@ const AddManualForm: React.FC<AddManualFormProps> = ({
             setDetails({ ...details, specifications: e.target.value })
           }
         />
-      )}
-      {service ? (
-        <IconInput
-          label="Product Icon: "
-          value={imageUrl || ""}
-          onChange={(file) => setDetails({ ...details, displayImage: file })}
-        />
-      ) : (
         <ImageInput
           label="Product Image:"
           imageUrl={imageUrl || ""}
           setImage={handleImageChange}
         />
-      )}
-      <div className={`grid ${service ? "grid-cols-2" : "grid-cols-3"} gap-4`}>
+      <div className={`grid grid-cols-3 gap-4`}>
         <Input
           label={`Price (in ${currency.code}):`}
           type="text"
@@ -124,7 +108,6 @@ const AddManualForm: React.FC<AddManualFormProps> = ({
             setDetails({ ...details, price: e.target.value })
           }
         />
-        {!service && (
           <Input
             label="Quantity:"
             type="number"
@@ -133,7 +116,6 @@ const AddManualForm: React.FC<AddManualFormProps> = ({
               setDetails({ ...details, quantity: e.target.value })
             }
           />
-        )}
         <Select title="Category: " options={categories} value={details.category} onChange={(e)=>setDetails({...details, category: e.target.value})} className="bg-zinc-900 w-full" />
       </div>
       <div className="flex justify-end items-center">
